@@ -86,8 +86,7 @@ showTask();
 
 
 // affiche task
-function showTask(){
-
+function showTask() {
     let todo = document.getElementById('todo');
     let doing = document.getElementById('doing');
     let done = document.getElementById('done');
@@ -95,27 +94,18 @@ function showTask(){
     todo.innerHTML = "";
     doing.innerHTML = "";
     done.innerHTML = "";
-    for(let i=0; i<dataTask.length; i++){
-         if(dataTask[i].status === 'TO DO'){
 
-            createHTML(todo , dataTask[i]);
-            taskStats();
-            
-        }else if(dataTask[i].status === 'DOING'){
-            
-          createHTML(doing,dataTask[i]);
-          taskStats();
-
-        }else if(dataTask[i].status === 'DONE'){
-          
-            createHTML(done, dataTask[i]);
-            taskStats();
-          
+    for (let i = 0; i < dataTask.length; i++) {
+        const task = dataTask[i];
+        if (task.status === 'TO DO') {
+            createHTML(todo, task, i);
+        } else if (task.status === 'DOING') {
+            createHTML(doing, task, i);
+        } else if (task.status === 'DONE') {
+            createHTML(done, task, i);
         }
-        
     }
-
-    
+    taskStats();
 }
 
 // define the background color of thr priority
@@ -129,7 +119,7 @@ function getPriorityColor(priority) {
 }
 
 
-function createHTML(placeholder , dataTask){
+function createHTML(placeholder , dataTask, index){
     let div = document.createElement('div');
 
              div.innerHTML = `
@@ -153,7 +143,7 @@ function createHTML(placeholder , dataTask){
     
     div.querySelector('#deletee').addEventListener('click', function (event) {
         event.stopPropagation(); // Prevent click event from bubbling to the task container
-        deleteTask(task);
+        deleteTask(index);
     });
 
 }
@@ -188,19 +178,12 @@ function displayTask(task, taskDiv) {
 }
 
 
-
-// clear inputs
-
-
-
-
 //delete task 
 
-function deleteTask(taskDelete) {
-       const index = dataTask.indexOf(taskDelete);
-        dataTask.splice(index, 1);
-        localStorage.setItem('task', JSON.stringify(dataTask));
-        showTask();
+function deleteTask(ind) {
+           dataTask.splice(ind, 1);
+           localStorage.setItem('task', JSON.stringify(dataTask));
+           showTask();
 }
 
 
