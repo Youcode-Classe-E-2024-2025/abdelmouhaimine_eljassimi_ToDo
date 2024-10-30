@@ -18,6 +18,10 @@ let task = document.getElementById('task');
 let taskForm = document.getElementById('taskForm');
 let exiteForm = document.getElementById('exiteForm');
 
+
+// delete task
+let deletee = document.getElementById('deletee');
+
 task.addEventListener('click', function(){       
     taskForm.classList.remove("hidden");
 });
@@ -133,7 +137,7 @@ function createHTML(placeholder , dataTask){
                              <div class="flex justify-between p-2"> 
                                  <i class='bx bxs-edit text-white text-3xl'></i>
                                  <h2 class="font-bold text-white text-3xl">${dataTask.titre}</h2>
-                                 <i class='bx bxs-trash text-coral text-3xl'></i>
+                                 <i id="deletee" class='bx bxs-trash text-coral text-3xl'></i>
                              </div>
                              <div class="flex justify-between p-2">
                                  
@@ -145,8 +149,16 @@ function createHTML(placeholder , dataTask){
     placeholder.appendChild(div);
 
     displayTask(dataTask, div);
+    // deleteTask(dataTask, div);
+    
+    div.querySelector('#deletee').addEventListener('click', function (event) {
+        event.stopPropagation(); // Prevent click event from bubbling to the task container
+        deleteTask(task);
+    });
 
 }
+
+// --------------------Show task detais--------------------------
 
 function displayTask(task, taskDiv) {
     taskDiv.onclick = function() {
@@ -156,11 +168,9 @@ function displayTask(task, taskDiv) {
                 <div class="flex justify-between p-2"> 
                     <i class='bx bxs-edit text-white text-3xl'></i>
                     <h2 class="font-bold text-white text-3xl">${task.titre}</h2>
-                    <i id="exiteDetails" class='bx bxs-exit text-white text-3xl'></i>
+                    <i id="exiteDetails" class='bx bxs-exit text-white text-3xl z-20'></i>
                 </div>
-                <div class="text-center text-white p-2">
-                    ${task.description}
-                </div>
+                <div class="text-center text-white p-2">${task.description}</div>
                 <div class="flex justify-between p-2">
 
                     <div class="min-w-24 h-10 ${getPriorityColor(task.priority)} flex justify-center font-bold text-white text-1xl rounded-[4px]">${task.priority}</div>
@@ -182,9 +192,17 @@ function displayTask(task, taskDiv) {
 // clear inputs
 
 
-// Show task detais
 
-//delete task
+
+//delete task 
+
+function deleteTask(taskDelete) {
+       const index = dataTask.indexOf(taskDelete);
+        dataTask.splice(index, 1);
+        localStorage.setItem('task', JSON.stringify(dataTask));
+        showTask();
+}
+
 
 
 
