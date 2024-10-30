@@ -8,6 +8,10 @@ let tacheDetails = document.getElementById('tacheDetails');
 let exiteDetails = document.getElementById('exiteDetails');
 
 
+let todo_stats = document .getElementById('todo_stats');
+let doing_stats = document .getElementById('doing_stats');
+let done_stats = document .getElementById('done_stats');
+
 
 // Open task form
 let task = document.getElementById('task');
@@ -22,6 +26,23 @@ exiteForm.addEventListener('click', function(){
 });
 
 
+
+function taskStats(){
+
+    const todoContainer = document.querySelector('#todo');
+    const todoCount = todoContainer.querySelectorAll("#tache").length;
+    todo_stats.innerText = todoCount;
+
+    const doingContainer = document.querySelector('#doing');
+    const doingCount = doingContainer.querySelectorAll("#tache").length;
+    doing_stats.innerText = doingCount;
+
+    const doneContainer = document.querySelector('#done');
+    const doneCount = doneContainer.querySelectorAll("#tache").length;
+    done_stats.innerText = doneCount;
+
+}
+
 // create task
 let dataTask;
 if(localStorage.getItem('task') != null){
@@ -31,6 +52,13 @@ if(localStorage.getItem('task') != null){
     dataTask=[];
 }
 submit.onclick = function(){
+
+    //validation
+    if (titre.value === "" || date.value === "") {
+        alert("Please enter a title and a date for the task.");
+        return;
+    }
+ 
      let newTask = {
         titre : titre.value,
         description : description.value,
@@ -67,18 +95,23 @@ function showTask(){
          if(dataTask[i].status === 'TO DO'){
 
             createHTML(todo , dataTask[i]);
+            taskStats();
             
         }else if(dataTask[i].status === 'DOING'){
             
           createHTML(doing,dataTask[i]);
+          taskStats();
 
         }else if(dataTask[i].status === 'DONE'){
           
             createHTML(done, dataTask[i]);
+            taskStats();
           
         }
-            
+        
     }
+
+    
 }
 
 // define the background color of thr priority
