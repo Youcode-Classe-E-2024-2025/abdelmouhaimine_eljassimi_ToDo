@@ -33,36 +33,32 @@
                     <div class="text-3xl font-bold text-white ml-3">TO DO</div>
                     <i class='bx bx-sort-alt-2 text-3xl font-bold text-white ml-3'></i>
                 </div>
-                <div class="overflow-y-auto">
-                    <div id="tache" class="bg-darkgrey w-full h-[100px] rounded-[15px] mt-4 border border-white">
-                        <div class="flex justify-between p-2"> 
-                            <i class='bx bxs-edit text-white text-3xl'></i>
-                            <h2 class="font-bold text-white text-3xl">TITLE</h2>
-                            <i class='bx bxs-trash text-coral text-3xl'></i>
-                        </div>
-                        <div class="flex justify-between p-2">
-                            <div class="min-w-24 h-10 bg-teal flex justify-center font-bold text-white text-1xl rounded-[4px]">P1</div>
-                            <div class="min-w-40 h-10 bg-customGray flex justify-center font-bold text-white text-1xl rounded-[4px]">25-10-2025</div>
-                        </div>
-                    </div>
+                <div id="todo" class="overflow-y-auto">
+                   
                 </div>
             </div>
       
             <!-- ----------------------DOING------------------------ -->
-            <div class="flex flex-col gap-3 bg-customGray min-w-[300px] w-[90%] sm:w-[450px] h-[550px] rounded-[40px] p-4">
+            <div id="" class="flex flex-col gap-3 bg-customGray min-w-[300px] w-[90%] sm:w-[450px] h-[550px] rounded-[40px] p-4">
                 <div class="flex items-center justify-between">
                     <div class="min-w-9 h-16 text-3xl font-bold text-white bg-yellow rounded-full flex items-center justify-center">1</div>
                     <div class="text-3xl font-bold text-white ml-3">DOING</div>
                     <i class='bx bx-sort-alt-2 text-3xl font-bold text-white ml-3'></i>
                 </div>
+                <div id="doing">
+
+                </div>
             </div>
       
             <!-- ----------------------DONE------------------------ -->
-            <div class="flex flex-col gap-3 bg-customGray min-w-[300px] w-[90%] sm:w-[450px] h-[550px] rounded-[40px] p-4">
+            <div id="" class="flex flex-col gap-3 bg-customGray min-w-[300px] w-[90%] sm:w-[450px] h-[550px] rounded-[40px] p-4">
                 <div class="flex items-center justify-between">
                     <div class="min-w-9 h-16 text-3xl font-bold text-white bg-redOrange rounded-full flex items-center justify-center">0</div>
                     <div class="text-3xl font-bold text-white ml-3">DONE</div>
                     <i class='bx bx-sort-alt-2 text-3xl font-bold text-white ml-3'></i>
+                </div>
+                <div id="done">
+                    
                 </div>
             </div>
         </div>
@@ -100,16 +96,25 @@
                 <textarea name="" id="description" class="min-h-20"></textarea>
     
                 <p class="text-white font-bold"> Entrer la preiorité de la tache</p>
-                <select name="" id="section" class="">
-                    <option value="" class="bg-redOrange">P1</option>
-                    <option value="" class="bg-yellow">P2</option>
-                    <option value="" class="bg-teal">P3</option>
+                <select name="" id="priority" class="">
+                    <option  class="bg-redOrange">P1</option>
+                    <option  class="bg-yellow">P2</option>
+                    <option  class="bg-teal">P3</option>
                 </select>
                 <p class="text-white font-bold"> Entrer la date de deadline</p>
                 <input type="date" id="date">
+
+                <p class="text-white font-bold"> Entrer Status</p>
+                 <select name="" id="status" class="">
+                    <option  class="bg-teal">TO DO</option>
+                    <option  class="bg-yellow">DOING</option>
+                    <option  class="bg-redOrange">DONE</option>
+                </select>
+
                  <div class="flex justify-center">
                     <button id="submit" type="button" class=" bg-white text-darkgrey w-[30%] rounded-[4px]">Submit</button>
                  </div>
+                 
                 
     
             </div>
