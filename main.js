@@ -17,16 +17,27 @@ let done_stats = document .getElementById('done_stats');
 let task = document.getElementById('task');
 let taskForm = document.getElementById('taskForm');
 let exiteForm = document.getElementById('exiteForm');
+let exiteEditForm = document.getElementById('exiteEditForm');
 
 
 // delete task
 let deletee = document.getElementById('deletee');
+
+// edit task 
+let editButton = document.getElementById('editButton');
+let editForm = document.getElementById('editForm');
+
 
 task.addEventListener('click', function(){       
     taskForm.classList.remove("hidden");
 });
 exiteForm.addEventListener('click', function(){       
     taskForm.classList.add("hidden");
+});
+
+exiteEditForm.addEventListener('click', function(){  
+    console.log(1);   
+    editForm.classList.add("hidden");
 });
 
 
@@ -78,7 +89,9 @@ submit.onclick = function(){
     //  hide the popup form 
       taskForm.classList.add("hidden");
       //Show data when i click on submit button
+      triAuto();
       showTask();
+      
 }
 
 showTask();
@@ -99,22 +112,24 @@ function showTask() {
         const task = dataTask[i];
         if (task.status === 'TO DO') {
             createHTML(todo, task, i);
-        } else if (task.status === 'DOING') {
+        } else if (task.status === 'DOING'){
             createHTML(doing, task, i);
-        } else if (task.status === 'DONE') {
+        } else if (task.status === 'DONE'){
             createHTML(done, task, i);
         }
     }
     taskStats();
+
+
 }
 
-// define the background color of thr priority
+// background color of thr priority
 
 function getPriorityColor(priority) {
     switch (priority) {
-        case 'P1': return 'bg-redOrange';
-        case 'P2': return 'bg-yellow';
-        case 'P3': return 'bg-teal';
+        case '1': return 'bg-redOrange';
+        case '2': return 'bg-yellow';
+        case '3': return 'bg-teal';
     } 
 }
 
@@ -123,15 +138,15 @@ function createHTML(placeholder , dataTask, index){
     let div = document.createElement('div');
 
              div.innerHTML = `
-                         <div id="tache" class="bg-darkgrey w-full h-[100px] rounded-[15px] mt-4 border border-white">
+                         <div draggable="true" id="tache" class="bg-darkgrey w-full h-[100px] rounded-[15px] mt-4 border border-white">
                              <div class="flex justify-between p-2"> 
-                                 <i class='bx bxs-edit text-white text-3xl'></i>
+                                 <i id= 'editButton' class='bx bxs-edit text-white text-3xl'></i>
                                  <h2 class="font-bold text-white text-3xl">${dataTask.titre}</h2>
                                  <i id="deletee" class='bx bxs-trash text-coral text-3xl'></i>
                              </div>
                              <div class="flex justify-between p-2">
                                  
-                                 <div class="min-w-24 h-10 ${getPriorityColor(dataTask.priority)} flex justify-center font-bold text-white text-1xl rounded-[4px]">${dataTask.priority}</div>
+                                 <div class="min-w-24 h-10 ${getPriorityColor(dataTask.priority)} flex justify-center font-bold text-white text-1xl rounded-[4px]">P${dataTask.priority}</div>
                                  <div class="min-w-40 h-10 bg-customGray flex justify-center font-bold text-white text-1xl rounded-[4px]">${dataTask.date}</div>
                              </div>
                          </div>  `
@@ -139,11 +154,14 @@ function createHTML(placeholder , dataTask, index){
     placeholder.appendChild(div);
 
     displayTask(dataTask, div);
-    // deleteTask(dataTask, div);
     
-    div.querySelector('#deletee').addEventListener('click', function (event) {
-        event.stopPropagation(); // Prevent click event from bubbling to the task container
+    div.querySelector('#deletee').addEventListener('click', function(event){
+        event.stopPropagation();
         deleteTask(index);
+    });
+    div.querySelector('#editButton').addEventListener('click', function(event){
+        event.stopPropagation();
+        EditTask(index);
     });
 
 }
@@ -187,12 +205,60 @@ function deleteTask(ind) {
 }
 
 
+// let tri = getElementById('tri');
+// tri.addEventListener('click',function(){
+//     let tmp;
+//     for (let i = 0; i < dataTask.length; i++){
+//         for(let j = 0; j < dataTask.length - 1; j++) {
+//             if(dataTask[j].priority > dataTask[j+1].priority) {
+//                 tmp = dataTask[j];
+//                 dataTask[j] = dataTask[j+1];
+//                 dataTask[j+1] = tmp;
+//             }
+//             if(dataTask[j].date > dataTask[j+1].date){
+//                 tmp = dataTask[j];
+//                 dataTask[j] = dataTask[j+1];
+//                 dataTask[j+1] = tmp;
+//             }
+           
+//         }
+//     }
+
+// });
+function triAuto(){
+    let tmp;
+    for (let i = 0; i < dataTask.length; i++){
+        for(let j = 0; j < dataTask.length - 1; j++) {
+            if(dataTask[j].priority > dataTask[j+1].priority) {
+                tmp = dataTask[j];
+                dataTask[j] = dataTask[j+1];
+                dataTask[j+1] = tmp;
+            } else if (dataTask[j].priority === dataTask[j+1].priority){
+                
+                if(dataTask[j].date > dataTask[j+1].date){
+                    tmp = dataTask[j];
+                    dataTask[j] = dataTask[j+1];
+                    dataTask[j+1] = tmp;
+                }
+            }
+        }
+    }
+    localStorage.setItem('task', JSON.stringify(dataTask));
+}
+triAuto();
 
 
-// Sort tasks with date and preority 
 
 
 
-// Statistique 
+// edit task
+
+function EditTask(){
+    editForm.classList.remove("hidden");
+}
+
+
+
+
 
 
