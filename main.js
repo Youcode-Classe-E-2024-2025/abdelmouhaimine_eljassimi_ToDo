@@ -6,7 +6,12 @@ let submit = document.getElementById('submit');
 let status = document.getElementById('status');
 let tacheDetails = document.getElementById('tacheDetails');
 let exiteDetails = document.getElementById('exiteDetails');
-
+const editTitreInput = document.getElementById('titreEdit');
+const descriptionEdit = document.getElementById('descriptionEdit');
+const priorityEdit = document.getElementById('priorityEdit');
+const dateEdit = document.getElementById('dateEdit');
+const statusEdit = document.getElementById('statusEdit');
+const editTachBtn = document.getElementById('editTach');
 
 let todo_stats = document .getElementById('todo_stats');
 let doing_stats = document .getElementById('doing_stats');
@@ -35,8 +40,7 @@ exiteForm.addEventListener('click', function(){
     taskForm.classList.add("hidden");
 });
 
-exiteEditForm.addEventListener('click', function(){  
-    console.log(1);   
+exiteEditForm.addEventListener('click', function(){     
     editForm.classList.add("hidden");
 });
 
@@ -100,6 +104,8 @@ showTask();
 
 // affiche task
 function showTask() {
+     const allTasks = JSON.parse(localStorage.getItem('task'));
+
     let todo = document.getElementById('todo');
     let doing = document.getElementById('doing');
     let done = document.getElementById('done');
@@ -108,8 +114,8 @@ function showTask() {
     doing.innerHTML = "";
     done.innerHTML = "";
 
-    for (let i = 0; i < dataTask.length; i++) {
-        const task = dataTask[i];
+    for (let i = 0; i < allTasks.length; i++) {
+        const task = allTasks[i];
         if (task.status === 'TO DO') {
             createHTML(todo, task, i);
         } else if (task.status === 'DOING'){
@@ -204,27 +210,6 @@ function deleteTask(ind) {
            showTask();
 }
 
-
-// let tri = getElementById('tri');
-// tri.addEventListener('click',function(){
-//     let tmp;
-//     for (let i = 0; i < dataTask.length; i++){
-//         for(let j = 0; j < dataTask.length - 1; j++) {
-//             if(dataTask[j].priority > dataTask[j+1].priority) {
-//                 tmp = dataTask[j];
-//                 dataTask[j] = dataTask[j+1];
-//                 dataTask[j+1] = tmp;
-//             }
-//             if(dataTask[j].date > dataTask[j+1].date){
-//                 tmp = dataTask[j];
-//                 dataTask[j] = dataTask[j+1];
-//                 dataTask[j+1] = tmp;
-//             }
-           
-//         }
-//     }
-
-// });
 function triAuto(){
     let tmp;
     for (let i = 0; i < dataTask.length; i++){
@@ -248,13 +233,37 @@ function triAuto(){
 triAuto();
 
 
-
-
-
 // edit task
 
-function EditTask(){
-    editForm.classList.remove("hidden");
+function EditTask(index){
+    editForm.classList.remove('hidden');
+    
+    const task = JSON.parse(localStorage.getItem('task'));
+    
+    
+    editTitreInput.value = task[index].titre;
+    descriptionEdit.value = task[index].description;
+    priorityEdit.value = task[index].priority;
+    console.log(task[index].date);
+    dateEdit.value = task[index].date;
+    statusEdit.value = task[index].status;
+    editTachBtn.addEventListener('click', function(event){
+        event.preventDefault();
+        const taskEdit={
+            titre : editTitreInput.value,
+            description : descriptionEdit.value,
+            priority : priorityEdit.value,
+            date : dateEdit.value,
+            status: statusEdit.value
+
+        }
+        task[index ] = taskEdit;
+        localStorage.setItem('task', JSON.stringify(task));
+        editForm.classList.add('hidden');
+        
+        showTask();
+
+    });
 }
 
 
