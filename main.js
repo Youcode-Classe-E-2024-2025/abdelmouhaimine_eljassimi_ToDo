@@ -96,8 +96,20 @@ submit.onclick = function(){
       taskForm.classList.add("hidden");
       //Show data when i click on submit button
       triAuto();
+      clearForm();
       showTask();
       
+      
+}
+
+// Function that clear the inputs after add a task
+
+function clearForm() {
+    titre.value = "";
+    description.value = "";
+    priority.value = "";
+    date.value = "";
+    status.value = "TO DO";
 }
 
 showTask();
@@ -182,14 +194,13 @@ function displayTask(task, taskDiv) {
         tacheDetails.innerHTML = `
             <div class="bg-darkgrey rounded-[40px] shadow-lg p-6 w-[90%] h-fit sm:w-[60%] md:w-[60%] lg:w-[50%] xl:w-[40%] h-fit sm:h-fit md:h-fit lg:h-fit xl:h-fit overflow-auto">
                 <div class="flex justify-between p-2"> 
-                    <i class='bx bxs-edit text-white text-3xl'></i>
                     <h2 class="font-bold text-white text-3xl">${task.titre}</h2>
                     <i id="exiteDetails" class='bx bxs-exit text-white text-3xl z-20'></i>
                 </div>
                 <div class="text-center text-white p-2">${task.description}</div>
                 <div class="flex justify-between p-2">
 
-                    <div class="min-w-24 h-10 ${getPriorityColor(task.priority)} flex justify-center font-bold text-white text-1xl rounded-[4px]">${task.priority}</div>
+                    <div class="min-w-24 h-10 ${getPriorityColor(task.priority)} flex justify-center font-bold text-white text-1xl rounded-[4px]">P${task.priority}</div>
                     <div class="min-w-40 h-10 bg-customGray flex justify-center font-bold text-white text-1xl rounded-[4px]">${task.date}</div>
                 </div>
             </div>
@@ -200,6 +211,7 @@ function displayTask(task, taskDiv) {
         exiteDetails.addEventListener('click', function() {
             tacheDetails.classList.add("hidden");
         });
+
     }
 }
 
@@ -273,9 +285,3 @@ function EditTask(index){
 
     });
 }
-
-
-
-
-
-
