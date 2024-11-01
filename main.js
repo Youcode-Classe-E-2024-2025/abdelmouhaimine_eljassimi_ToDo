@@ -63,7 +63,7 @@ function taskStats(){
 }
 
 // create task
-let dataTask;
+var dataTask;
 if(localStorage.getItem('task') != null){
     dataTask = JSON.parse(localStorage.getItem('task'));
     
@@ -87,6 +87,8 @@ submit.onclick = function(){
      }
      
      dataTask.push(newTask);
+     console.log(dataTask);
+     
     //  Save local storage
      localStorage.setItem('task', JSON.stringify(dataTask));
 
@@ -244,23 +246,29 @@ function EditTask(index){
     editTitreInput.value = task[index].titre;
     descriptionEdit.value = task[index].description;
     priorityEdit.value = task[index].priority;
-    console.log(task[index].date);
     dateEdit.value = task[index].date;
     statusEdit.value = task[index].status;
+
+    
     editTachBtn.addEventListener('click', function(event){
         event.preventDefault();
+
         const taskEdit={
             titre : editTitreInput.value,
             description : descriptionEdit.value,
             priority : priorityEdit.value,
             date : dateEdit.value,
             status: statusEdit.value
-
         }
-        task[index ] = taskEdit;
+
+        task[index] = taskEdit;
+        console.log(index);
+        console.log(task);
+        dataTask[index] = task[index];
+        console.log("DATA TASK :",dataTask);
+        
         localStorage.setItem('task', JSON.stringify(task));
         editForm.classList.add('hidden');
-        
         showTask();
 
     });
