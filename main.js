@@ -193,7 +193,8 @@ function displayTask(task, taskDiv) {
         tacheDetails.classList.remove("hidden");
         tacheDetails.innerHTML = `
             <div class="bg-darkgrey rounded-[40px] shadow-lg p-6 w-[90%] h-fit sm:w-[60%] md:w-[60%] lg:w-[50%] xl:w-[40%] h-fit sm:h-fit md:h-fit lg:h-fit xl:h-fit overflow-auto">
-                <div class="flex justify-between p-2"> 
+                <div class="flex p-2 justify-between">
+                <i id= 'editButton' class='bx bxs-edit text-white text-3xl'></i>
                     <h2 class="font-bold text-white text-3xl">${task.titre}</h2>
                     <i id="exiteDetails" class='bx bxs-exit text-white text-3xl z-20'></i>
                 </div>
@@ -284,4 +285,14 @@ function EditTask(index){
         showTask();
 
     });
+}
+
+
+function DragDrop(){
+    let T = document.querySelectorAll('#tache');
+    T.forEach(T=>{
+        T.addEventListener('dragstart', function(){
+            console.log("dragstart")
+        })
+    })
 }
