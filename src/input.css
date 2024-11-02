@@ -28,3 +28,8 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+.fade-out {
+    transition: opacity 0.5s ease;
+    opacity: 0;
+}

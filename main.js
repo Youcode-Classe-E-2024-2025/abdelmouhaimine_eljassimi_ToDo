@@ -88,6 +88,10 @@ submit.onclick = function(){
      
      dataTask.push(newTask);
      console.log(dataTask);
+
+
+     const createSound = document.getElementById('createSound');
+     createSound.play();
      
     //  Save local storage
      localStorage.setItem('task', JSON.stringify(dataTask));
@@ -139,7 +143,6 @@ function showTask() {
         }
     }
     taskStats();
-
 
 }
 
@@ -220,10 +223,15 @@ function displayTask(task, taskDiv) {
 //delete task 
 
 function deleteTask(ind) {
-           dataTask.splice(ind, 1);
-           localStorage.setItem('task', JSON.stringify(dataTask));
-           showTask();
+    const deleteSound = document.getElementById('deleteSound');
+    
+    deleteSound.play();
+
+    dataTask.splice(ind, 1);
+    localStorage.setItem('task', JSON.stringify(dataTask));
+    showTask();
 }
+
 
 function triAuto(){
     let tmp;
